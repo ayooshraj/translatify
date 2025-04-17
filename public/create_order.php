@@ -22,7 +22,7 @@ if (!isset($pricing[$plan])) {
 $amount = $pricing[$plan];
 
 // 🔐 Your Razorpay keys
-$api = new API('rzp_test_me27YCOcUrrKF9', 'WF96xGRqJYKWbrB5R7JCO8os');
+$api = new API('API key 1', 'API key 2');
 
 $order = $api->order->create([
   'receipt' => uniqid("order_"),
