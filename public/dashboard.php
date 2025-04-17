@@ -57,6 +57,58 @@ if ($user_id) {
             darkMode: 'class',
         }
     </script>
+    <script>
+  // Fetch languages and populate dropdowns
+  function fetchLanguages() {
+    fetch("../src/translate.php?getLanguages=true")
+      .then(response => response.json())
+      .then(data => {
+        const sourceSelect = document.getElementById("source");
+        const targetSelect = document.getElementById("target");
+
+        // Clear current options
+        sourceSelect.innerHTML = `<option value="auto">Detect Language</option>`;
+        targetSelect.innerHTML = "";
+
+        data.data.languages.forEach(lang => {
+          let option = document.createElement("option");
+          option.value = lang.language;
+          option.textContent = lang.name;
+          // Append to both selects
+          sourceSelect.appendChild(option.cloneNode(true));
+          targetSelect.appendChild(option.cloneNode(true));
+        });
+      })
+      .catch(error => console.error("Error fetching languages:", error));
+  }
+
+  // Handle translation
+  function translateText() {
+    const text = document.getElementById("text").value;
+    const source = document.getElementById("source").value;
+    const target = document.getElementById("target").value;
+    const regional = document.getElementById("regionalToggle").checked ? "true" : "false";
+
+    const params = `text=${encodeURIComponent(text)}&source=${encodeURIComponent(source)}&target=${encodeURIComponent(target)}&regional=${encodeURIComponent(regional)}`;
+
+    fetch("../src/translate.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("result").innerText =
+        data.translatedText || "Error: Unable to translate";
+    })
+    .catch(error => console.error("Error:", error));
+  }
+
+  // Run fetchLanguages on page load
+  window.onload = function () {
+    fetchLanguages();
+  };
+</script>
     <style>
   .dot {
     transform: translateX(0);
@@ -132,24 +184,49 @@ if ($user_id) {
     
 
     <!-- Translate Section -->
-    <section id="translate" class="mb-16 bg-white dark:bg-gray-800 p-8 rounded-lg shadow border dark:border-gray-700">
-        <h2 class="text-xl font-semibold dark:text-white mb-4">Translate Text</h2>
-        <form action="translate.php" method="POST">
-        <textarea name="text" maxlength="500" placeholder="Enter text to translate..." class="w-full p-4 rounded border dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-500 mb-4" rows="5"></textarea>
+    <h2 class="text-xl font-semibold dark:text-white mb-4 flex items-center gap-2">
+  🌍 Translatify
+  <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Beta</span>
+</h2>
 
-            <div class="flex items-center gap-4">
-            <select name="language" required class="p-2 rounded border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+<form onsubmit="translateText(); return false;">
+  <label for="text" class="block text-gray-700 dark:text-white font-medium mb-2">Enter Text</label>
+  <textarea id="text" maxlength="500" placeholder="Type something to translate..." class="w-full p-4 rounded border dark:bg-gray-700 dark:border-gray-600 dark:text-white placeholder-gray-500 mb-4" rows="5"></textarea>
 
-                    <option value="">Select Language</option>
-                    <option value="fr">French</option>
-                    <option value="es">Spanish</option>
-                    <option value="hi">Hindi</option>
-                    <option value="de">German</option>
-                </select>
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Translate</button>
-            </div>
-        </form>
-    </section>
+  <div class="flex flex-col sm:flex-row gap-4 mb-4">
+    <div class="w-full">
+      <label for="source" class="block text-sm text-gray-600 dark:text-gray-300 mb-1">From</label>
+      <select id="source" class="w-full p-3 rounded border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <!-- Options will be populated dynamically -->
+      </select>
+    </div>
+    <div class="w-full">
+      <label for="target" class="block text-sm text-gray-600 dark:text-gray-300 mb-1">To</label>
+      <select id="target" class="w-full p-3 rounded border dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <!-- Options will be populated dynamically -->
+      </select>
+    </div>
+  </div>
+
+  <div class="flex items-center mb-4">
+    <input type="checkbox" id="regionalToggle" class="mr-2 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-400"/>
+    <label for="regionalToggle" class="text-sm text-gray-700 dark:text-gray-300">Enable Regional Phrases</label>
+  </div>
+
+  <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full sm:w-auto">
+    🔁 Translate
+  </button>
+</form>
+
+<div id="result" class="mt-6 text-base font-medium text-gray-800 dark:text-white min-h-[3rem]">
+  <!-- Translated text appears here -->
+</div>
+
+<div class="mt-6 text-sm text-gray-500 dark:text-gray-400">
+  Need help? <a href="mailto:support@translatify.app" class="text-blue-600 hover:underline">Contact Support</a>
+</div>
+
+
 
     <!-- History -->
     <section id="history" class="mb-16">
