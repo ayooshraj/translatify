@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
     payBtn.onclick = function (e) {
         const options = {
             key: "rzp_test_me27YCOcUrrKF9",
-            amount: 1500 * 100,
+            amount: 1290 * 100,
             currency: "INR",
             name: "Translatify Pro Plan",
             description: "5,000 translations/month",

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+  
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
 <meta name="description" content="Translatify helps you break language barriers with smart regional phrase translation. Instant, accurate, native-feeling results.">
 <meta property="og:title" content="Translatify – Smart Regional Translator">
@@ -14,6 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <!-- Translator Functionality Script -->
   <script>
+  
   // Fetch languages and populate dropdowns
   function fetchLanguages() {
     fetch("../src/translate.php?getLanguages=true")
@@ -78,7 +79,11 @@
   href="https://unpkg.com/swiper/swiper-bundle.min.css"
 />
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
+<style>
+    html{
+      scroll-behavior: smooth;
+    }
+  </style>
 
 </head>
 
@@ -332,8 +337,9 @@
           <li>✔ Access to all languages</li>
           <li>✔ Email support</li>
         </ul>
-        <button class="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">Get Started</button>
-      </div>
+        <a href="register.php" class="mt-6 block w-full bg-blue-700 text-white py-2 rounded-lg text-center hover:bg-blue-800 transition">
+  Get Started
+</a>      </div>
 
       <!-- Pro Plan -->
       <div class="bg-white p-6 rounded-2xl shadow-lg border-2 border-blue-500 hover:shadow-xl transform transition scale-[1.03]">
@@ -346,7 +352,9 @@
           <li>✔ Priority email support</li>
           <li>✔ Translation history access</li>
         </ul>
-        <button class="mt-6 w-full bg-blue-700 text-white py-2 rounded-lg hover:bg-blue-800 transition">Upgrade</button>
+        <a href="register.php" class="mt-6 block w-full bg-blue-700 text-white py-2 rounded-lg text-center hover:bg-blue-800 transition">
+  Get Pro
+</a>
       </div>
 
       <!-- Enterprise Plan -->
@@ -360,7 +368,7 @@
           <li>✔ Dedicated account manager</li>
           <li>✔ API access + Integration support</li>
         </ul>
-        <button class="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">Contact Sales</button>
+        <button class="mt-6 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"><a href="contact.html">Contact Us</a></button>
       </div>
     </div>
   </div>
@@ -416,7 +424,6 @@
     <div>
       <h4 class="font-semibold mb-2">Company</h4>
       <ul class="space-y-1 text-sm">
-        <li><a href="#about" class="hover:text-blue-600 transition">About Us</a></li>
         <li><a href="#contact" class="hover:text-blue-600 transition">Contact</a></li>
         <li><a href="mailto:support@translatify.app" class="hover:text-blue-600 transition">Support</a></li>
       </ul>

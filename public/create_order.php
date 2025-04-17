@@ -9,8 +9,8 @@ $plan = $input['plan'] ?? '';
 
 // Define pricing
 $pricing = [
-  'pro' => 1500,        // ₹15.00 in paise
-  'enterprise' => 4900  // ₹49.00 in paise
+  'pro' => 1500,        // $15.00 in paise
+  'enterprise' => 4900  // $49.00 in paise
 ];
 
 if (!isset($pricing[$plan])) {
