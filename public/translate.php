@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Translation using Google Translate API
-    $apiKey = 'AIzaSyDe_lWzivEo6E7d_7X7v4iTrwlHH_2ln4c'; // Replace with your actual API key
+    $apiKey = 'google cloud api key'; // Replace with your actual API key
     $url = "https://translation.googleapis.com/language/translate/v2";
 
     $postData = [
